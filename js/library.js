@@ -16,7 +16,6 @@ var yAxis;
 var showMoney = d3.format(".2s");
 
 // When page first loads, don't hide anyone
-var hide_total = false;
 var hide_sp = false;
 var hide_c = false;
 var hide_b1 = false;
@@ -47,8 +46,6 @@ d3.select('#filename')
     .on('change', load_file);
 
 //Select/deselect circles using the checkboxes
-d3.select('#total')
-    .on('change', filter_circles);
 
 d3.select('#b1')
     .on('change', filter_circles);
