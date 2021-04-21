@@ -1,4 +1,3 @@
-  
 /******d3.csv('data/war_2017.csv', function(data) {
 	console.log(data);
 });********/
@@ -46,7 +45,6 @@ d3.select('#filename')
     .on('change', load_file);
 
 //Select/deselect circles using the checkboxes
-
 d3.select('#b1')
     .on('change', filter_circles);
 
@@ -110,9 +108,9 @@ function draw_circles(dataset) {
         .data(dataset)
         .enter()
           .append('circle')
-          .attr('cx', d => xScale(d.owner))
+          .attr('cx', d => xScale(d.salary))
           .attr('cy', d => yScale(d.war))
-          .attr('class', d => d.player);
+          .attr('class', d => d.position);
     filter_circles();
 }
 
@@ -129,11 +127,11 @@ function filter_circles() {
     hide_dh = d3.select('#dh').property('checked') ? false : true;
     hide_sp = d3.select('#sp').property('checked') ? false : true;
     d3.selectAll('circle')
-        .classed('invisible', d => player_filter(d));
+        .classed('invisible', d => position_filter(d));
 }
 
-function player_filter(d) {
-    if (d.player == "B1" && hide_b1) return true;
+function position_filter(d) {
+    if (d.position == "B1" && hide_b1) return true;
     if (d.position == "B2" && hide_b2) return true;
     if (d.position == "B3" && hide_b3) return true;
     if (d.position == "SS" && hide_ss) return true;
@@ -162,7 +160,7 @@ function get_filename() {
 
 //This function converts .csv to numbers where appropriate
 function clean_rows(d) {
-    return {player: +d.player, war: +d.war, owner: d.owner};
+    return {salary: +d.salary, war: +d.war, position: d.position};
 }
 
 /*****************************************
@@ -170,7 +168,7 @@ function clean_rows(d) {
 *****************************************/
 
 function build_xscale(data) {
-    var span = d3.extent(data, d => d.player);
+    var span = d3.extent(data, d => d.salary);
     var scale_padding = (span[1] - span[0]) * DOMAIN_PADDING;
     return d3.scaleLinear()
         .domain([span[0] - scale_padding, span[1] + scale_padding] )
