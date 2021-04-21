@@ -1,0 +1,203 @@
+/****************
+Big containers
+*****************/
+
+body {
+	font-size: 100%;
+	line-height: 1.7;
+	background-color: #F7F7F7;
+	color: #303036;
+}
+
+p {
+	text-indent: 50px;
+	color: #303036;
+	padding-left: 27%;
+	padding-right: 27%;
+	font-size: 15px;
+}
+
+a {
+	color: #303036;
+}
+
+/***********************
+Data Viz Project
+***********************/
+
+svg {
+	display: block;
+	height: 500px;
+	width: 750px;
+	background-color: #d6e2e9;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+/***********************
+Data Viz title (the slide box, not the words)
+***********************/
+header {
+	width: 750px;
+	height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 0.35em;
+	background: #303036;
+}
+
+/***********************
+Data Viz title (the words not the slide)
+***********************/
+.datavizheader {
+	text-align: center;
+	font-size: 18px;
+	color: #fff;
+}
+
+/***********************
+Data Viz Checkboxes and data selection area
+(Kind of the top of the chart)
+***********************/
+div#buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #C4CCD1;
+	min-height: 60px;
+}
+
+div#checkboxes {
+	flex: 50%;
+	text-align: center;
+	padding-top: 0.7em;
+	padding-right: 20%;
+}
+
+/*Sets up the checkboxes in a grid*/
+
+ul {
+	margin: 0 auto;
+	text-align: center;
+	columns: 6;
+}
+
+li{
+	display: inline-block;
+	vertical-align: top;
+}
+
+div#dataset {
+	flex: 50%;
+	padding-top: 1.3em;
+}
+
+/***********************
+This draws the circles
+***********************/
+circle {
+	r: 5.5;
+	/*****consider changing below make data points more visible?**/
+	stroke: #36413e;
+}
+
+.SP {
+	fill: #1d7874;
+}
+
+.C {
+	fill: #354b4e;
+}
+
+.B1 {
+	fill: #111344;
+}
+
+.B2 {
+	fill: #52154e;
+}
+
+.B3 {
+	fill: #f9cff2;
+}
+
+.SS {
+	fill: #c7781e;
+}
+
+.LF {
+	fill: #f3d79c;
+}
+
+.CF {
+	fill: #acbed8;
+}
+
+.RF {
+	fill: #de1a1a;
+}
+
+.DH {
+	fill: #4392f1;
+}
+
+/***Show no markers when checkboxes unticked***/
+.invisible {
+	display: none;
+}
+
+/***********************
+Key list with colours
+***********************/
+.key { 
+	list-style: none;
+	margin-left: 27%; 
+	padding: 12px; 
+	text-align: center;
+	columns: 8;
+}
+.key li { 
+	display: inline-block;
+	vertical-align: top;
+	padding: 12px
+}
+.key span {
+	border: 1px solid #ccc; 
+	float: left; 
+	width: 12px; 
+	height: 12px; 
+	margin: 2px; }
+
+.key .p {
+	background-color: #1d7874;
+}
+.key .c {
+	background-color: #354b4e;
+}
+.key .b1 {
+	background-color: #111344;
+}
+.key .b2 {
+	background-color: #52154e;
+}
+.key .b3 {
+	background-color: #f9cff2;
+}
+.key .ss {
+	background-color: #c7781e;
+}
+.key .lf {
+	background-color: #f3d79c;
+}
+.key .cf {
+	background-color: #acbed8;
+}
+.key .rf {
+	background-color: #de1a1a;
+}
+.key .dh {
+	background-color: #4392f1;
+}
