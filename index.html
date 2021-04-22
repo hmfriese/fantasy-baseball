@@ -57,6 +57,14 @@
           .attr('x', d => x(d.Period))
           .attr('y', d => y(d.Amount));
 
+        rects.enter()
+          .append('rect')
+          .attr('class', 'bar-rect')
+          .attr('width', x.bandwidth)
+          .attr('height', d => graphHeight - y(d.Amount))
+          .attr('x', d => x(d.Period))
+          .attr('y', d => y(d.Amount));
+
         const xAxis = d3.axisBottom(x);
         const yAxis = d3.axisLeft(y)
           .ticks(5)
