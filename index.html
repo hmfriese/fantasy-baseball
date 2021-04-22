@@ -13,7 +13,6 @@
     }
   </style>
 <body>
-  <p>push test</p>
   <div class="canvas"></div>
   <script src="https://d3js.org/d3.v6.js"></script>
   <script>
@@ -40,8 +39,8 @@
 
       d3.json('sales.json').then(data => {
         const y = d3.scaleLinear()
-          .domain([0, d3.max(data, d=> d.Amount)])
-          .range([graphWidth, 0]);
+          .domain([0, d3.max(data, d => d.Amount)])
+          .range([graphHeight, 0]);
 
         const x = d3.scaleBand()
           .domain(data.map(item => item.Period))
@@ -61,7 +60,7 @@
         const xAxis = d3.axisBottom(x);
         const yAxis = d3.axisLeft(y)
           .ticks(5)
-          .tickFormat(d => `USD $ {d / 1000}K`);
+          .tickFormat(d => `USD ${d / 1000}K`);
 
         gXAxis.call(xAxis);
         gYAxis.call(yAxis);
