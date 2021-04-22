@@ -1,82 +1,76 @@
 <!DOCTYPE html>
-<html lang=en>
-
+<html lang="en">
 <head>
-  <meta charset=utf-8>
-  <title>Fantasy Baseball at the End of the World</title>
-  <link type="text/css" rel="stylesheet" href="CSS/styles.css" />
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.JS Bar Chart</title>
 </head>
-
+  <style>
+    rect.bar-rect { fill: #189ad3; }
+    rect.bar-rect:hover { 
+      fill: #107dac;
+      transition: all .2s;
+    }
+  </style>
 <body>
+  <div class="canvas"></div>
+  <script src="https://d3js.org/d3.v6.js"></script>
+  <script>
+      const width = 1000;
+      const height = 600;
+      const margin = {'top': 20, 'right': 20, 'bottom': 100, 'left': 100};
+      const graphWidth = width - margin.left - margin.right;
+      const graphHeight = height - margin.top - margin.bottom;
 
-<div class="heading1">
-  <h2>Wins Above Replacement and Salary for Major League Baseball Players, 2016-2019</h2>
-</div>
+      const svg = d3.select('.canvas')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
 
-<div class="datavizheader"><header>
-  <h2>bum bum bummm</h2>
-</header></div>
+      const graph = svg.append('g')
+        .attr('width', graphWidth)
+        .attr('height', graphHeight)
+        .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-<div id="buttons">
-  <div id=checkboxes>
-    <!--Final Version Labels, There should be 10-->
-    <ul>
-    <li><label for="sp">P </label>
-      <input type="checkbox" id="sp" name="sp" checked></li>
-    <li><label for="SS">SS </label>
-      <input type="checkbox" id="ss" name="ss" checked></li>
-    <li><label for="c">C </label>
-      <input type="checkbox" id="c" name="c" checked></li>
-    <li><label for="lf">LF </label>
-      <input type="checkbox" id="lf" name="lf" checked></li>
-    <li><label for="b1">1B </label>
-      <input type="checkbox" id="b1" name="b1" checked></li>
-    <li><label for="cf">CF </label>
-      <input type="checkbox" id="cf" name="cf" checked></li>
-    <li><label for="b2">2B </label>
-      <input type="checkbox" id="b2" name="b2" checked></li>
-    <li><label for="rf">RF </label>
-      <input type="checkbox" id="rf" name="rf" checked></li>
-    <li><label for="b3">3B </label>
-      <input type="checkbox" id="b3" name="b3" checked></li>
-    <li><label for="dh">DH </label>
-      <input type="checkbox" id="dh" name="dh" checked></li>
-    </ul>
-  </div><!-- checkboxes -->
-  <div id=dataset>
-    <select id=filename name=filename>
-      <option value="" selected>Choose a season:</option>
-      <option value="total.csv">Total WAR</option>
-      <option value="war_2019.csv">2019 Season</option>
-      <option value="war_2018.csv">2018 Season</option>
-      <option value="war_2017.csv">2017 Season</option>
-      <option value="war_2016.csv">2016 Season</option>
-    </select>
-  </div><!-- dataset -->
-</div><!-- buttons -->
+      const gXAxis = graph.append('g')
+        .attr('transform', `translate(0, ${graphHeight})`);
 
-<svg></svg>
+      const gYAxis = graph.append('g')
 
-<div class="subheading">
-  <h2>Key</h2>
-</div>
+      d3.json('sales.json').then(data => {
+        const y = d3.scaleLinear()
+          .domain([0, d3.max(data, d=> d.Amount)])
+          .range([graphWidth, 0]);
 
-<ul class="key">
-    <li><span class="p"></span> P - Pitcher</li>
-    <li><span class="c"></span> C - Catcher</li>
-    <li><span class="b1"></span> 1B - First Base</li>
-    <li><span class="b2"></span> 2B - Second Base</li>
-    <li><span class="b3"></span> 3B - Third Base</li>
-    <li><span class="ss"></span> SS - Short Stop</li>
-    <li><span class="lf"></span> LF - Left Field</li>
-    <li><span class="cf"></span> CF - Center Field</li>
-    <li><span class="rf"></span> RF - Right Field</li>
-    <li><span class="dh"></span> DH - Designated Hitter</li>
-</ul>
-  
- </body>
+        const x = d3.scaleBand()
+          .domain(data,map(item => item.Period))
+          .range([0, 500])
+          .paddingInner(0.2)
+          .paddingOuter(0.2);
 
-<script src="js/library.js"></script>
+        const rects = graph.selectAll('rect')
+          .data(data);
 
+        rects.attr('width', x.bandwidth)
+          .attr('class', 'bar-rect')
+          .attr('height', d => graphHeight - y(d.Amount))
+          .attr('x', d => x(d.Period))
+          .attr('y', d => y(d.Amount));
+
+        const xAxis = d3.axisBottom(x);
+        const yAxis = d3.axisLeft(y)
+          .ticks(5)
+          .tickFormat(d => `USD $ {d / 1000}K`);
+
+        gXAxis.call(xAxis);
+        gYAxis.call(yAxis);
+
+        gXAxis.selectAll('text')
+          .style('font-size', 14);
+
+        gYAxis.selectAll('text')
+          .style('font-size', 14);
+      });
+  </script>
+</body>
 </html>
